@@ -1,0 +1,10 @@
+Takeaways:
+We're actually pretty on track and not overscoped. We should take a lot of data. They were worried about where to put the phone, but we aren't, we just standardized it.
+
+Plan for moving forward:
+-just took data
+-Fourier Transform data
+-rip Eigenfaces code into useable form
+-see what comes out of it
+-make a website at some point
+-move on to Module 3
