@@ -1,43 +1,56 @@
 clear
 files = dir('Walking Data/*.mat');
 clf
-dataMatrix = zeros(350*3,length(files));
-testMatrix = zeros(350*3,length(files));
-nameList = [];
+n = 5;
+dataMatrix = zeros(700/n*3,length(files)*(n-1));
+testMatrix = zeros(700/n*3,length(files));
+testList = [];
+trainList = [];
 i = 1;
 for file = files'
     load(strcat(file.folder,'\\',file.name));
     L = size(a, 1);
     Fs = mean(diff(t));
-    testa  = a(1:floor(L/2),:);
-    traina = a(floor(L/2)+1:end,:);
-    testA  = fft(testa, 350, 1);
-    trainA = fft(traina, 350, 1);
+    p = floor(L/n);
     
-    nameList = [nameList; string(file.name)];
+    part1 = a(1:p,:);
+    part2 = a(p+1:2*p,:);
+    part3 = a(2*p+1:3*p,:);
+    part4 = a(3*p+1:4*p,:);
+    part5 = a(4*p+1:end,:);
     
-    testA(1,:)  = 0;
-    trainA(1,:) = 0;
+    testList = [testList; string(file.name)];
+    trainList = [trainList; string(file.name); string(file.name); string(file.name); string(file.name)];
     
-    testTheta  = angle(testA(2,:));
-    trainTheta = angle(trainA(2,:));
-    testOffset  = exp(-j*testTheta);
-    trainOffset = exp(-j*trainTheta);
+    A1 = (fft(part1,700/n,1));
+    A2 = (fft(part2,700/n,1));
+    A3 = (fft(part3,700/n,1));
+    A4 = (fft(part4,700/n,1));
+    A5 = (fft(part5,700/n,1));
     
-    testA  = testA  .* testOffset;
-    trainA = trainA .* trainOffset;
+    A1(1,:) = 0;
+    A2(1,:) = 0;
+    A3(1,:) = 0;
+    A4(1,:) = 0;
+    A5(1,:) = 0;
     
-    testA  = fftshift(testA, 1);
-    trainA = fftshift(trainA, 1);
+    A1 = fftshift(A1,1);
+    A2 = fftshift(A2,1);
+    A3 = fftshift(A3,1);
+    A4 = fftshift(A4,1);
+    A5 = fftshift(A5,1);
     
-    testV = reshape(testA,[350*3 1]);
-    trainV = reshape(trainA,[350*3 1]);
-    dataMatrix(:,i) = trainV;
-    testMatrix(:,i) = testV;
+    V1 = reshape(A1,[700/n*3 1]);
+    V2 = reshape(A2,[700/n*3 1]);
+    V3 = reshape(A3,[700/n*3 1]);
+    V4 = reshape(A4,[700/n*3 1]);
+    V5 = reshape(A5,[700/n*3 1]);
+    dataMatrix(:,(i-1)*4+1:(i-1)*4+4) = [V1 V2 V3 V4];
+    testMatrix(:,i) = V5;
     i = i + 1;
 end
 
-save allData.mat dataMatrix testMatrix nameList
+save allData.mat dataMatrix testMatrix testList trainList
 
 [U, S, V] = svd(dataMatrix, 'econ');
 
