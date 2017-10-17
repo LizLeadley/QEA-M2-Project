@@ -1,0 +1,16 @@
+clear
+files = dir('Walking Data/*.mat');
+clf
+for file = files'
+    load(strcat(file.folder,'\\',file.name));
+    L = size(a, 1);
+    Fs = mean(diff(t));
+    testa  = a(1:L/2);
+    traina = a(L/2+1:end);
+    testA  = (fft(testa, 350, 1));
+    trainA = (fft(traina, 350, 1), 1);
+    size(testA)
+    testV = reshape(testA,[350*3 1]);
+    trainV = reshape(trainA,[350*3 1]);
+    plot(abs(testV))
+end
