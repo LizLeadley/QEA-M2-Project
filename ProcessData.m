@@ -1,5 +1,5 @@
 clear
-files = dir('Walking Data/*.mat');
+files = dir('Liz Data/*.mat');
 clf
 n = 5;
 dataMatrix = zeros(700/n*3,length(files)*(n-1));
@@ -50,7 +50,7 @@ for file = files'
     i = i + 1;
 end
 
-save allData.mat dataMatrix testMatrix testList trainList
+save lizData.mat dataMatrix testMatrix testList trainList
 
 [U, S, V] = svd(dataMatrix, 'econ');
 

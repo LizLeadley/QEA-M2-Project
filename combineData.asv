@@ -1,0 +1,7 @@
+load allData.mat
+classTrain = dataMatrix;
+classTest  = testMatrix;
+classTrainList = trainList;
+classTestList  = testList;
+load lizData.mat
+dataMatrix = [classTrain dataMatrix];

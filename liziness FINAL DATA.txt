@@ -1,0 +1,17 @@
+Lizness:                null:
+Liz:   0.6774 (n=31)    .218
+Liz:   0.9286 (n=28)    .218
+Henry: 0.0714 (n=14)    .218
+Henry: 0.4242 (n=33)    .218
+
+
+someone who is Liz should be about 80% Liz
+someone who isn't Liz should be about 20% Liz 
+
+using 21% Liz null hypothesis:
+Liz: chi^2 = 134.4, r = 58:    p<.001
+Henry: chi^2 = 49.0533, r=46   .2<p<.97
+
+using 100% Liz null hypothesis for Liz, 21% for Henry
+Liz:  chi^2 = 12, r = 58:      p>.995
+Henry: chi^2 = 49.0533, r=46   .2<p<.97
